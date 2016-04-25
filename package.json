@@ -1,0 +1,37 @@
+{
+  "name": "vdm",
+  "version": "0.0.1",
+  "description": "a lightweight directive template of Virtual DOM",
+  "main": "build/0.0.1/vdm.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start ./test/karma.conf.js",
+    "build": "webpack --config webpack.config.js && webpack --config webpack.config.production.js",
+    "doc": "node ./md2doc.js"
+  },
+  "keywords": [
+    "light",
+    "vmd",
+    "Virtual DOM",
+    "directive"
+  ],
+  "author": "Julian",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine-core": "~2.4.1",
+    "karma": "~0.13.15",
+    "karma-chrome-launcher": "~0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "~0.3.6",
+    "karma-safari-launcher": "^0.1.1",
+    "webpack": "^1.12.9"
+  },
+  "dependencies": {
+    "highlight.js": "~9.2.0",
+    "karma-coverage": "~0.5.3",
+    "marked": "~0.3.5"
+  }
+}

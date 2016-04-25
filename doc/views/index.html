@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>vdm-轻量级指令模板解决方案</title>
+  <link rel="stylesheet" type="text/css" href="../lib/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="../lib/lib.css">
+  <link rel="stylesheet" type="text/css" href="../lib/index.css">
+  <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1457335274_5251873.css">
+
+  <script src="../lib/highlight.js"></script>
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/semantic.min.js"></script>
+
+  <script>hljs.initHighlightingOnLoad()</script>
+</head>
+<body>
+
+
+<div class="index-top-banner">
+
+  <div id="site-nav">
+    <div class="head">
+      <nav class="head-nav quick-menu">
+        <ul class="clearfix">
+          <li class="lists current"><a href="./index.html">首页</a></li>
+          <li class="lists"><a href="./guide.html">起步</a></li>
+          <li class="lists"><a href="./doc.html">文档</a></li>
+          <li class="lists"><a href="./example.html">实例</a></li>
+          <li class="lists"><a href="./article.html">文章</a></li>
+          <li class="lists"><a target="_blank" href="../../benchmark/list.html">基准测试</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="slide">
+    <div class="index-logo">
+      
+      <!--409dee-->
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="180px" height="180px" viewBox="-256 -256 512 512" style="display: inline-block; margin: -0.25em 0px 0px; vertical-align: middle;"><path d="M0,-256 221.7025033688164,-128 221.7025033688164,128 0,256 -221.7025033688164,128 -221.7025033688164,-128z" fill="#673ab8" style="transition: all 1s ease; transform: rotate(60deg);"></path><ellipse cx="0" cy="0" stroke-dasharray="400 30.009474321501003" stroke-dashoffset="7341.577059737105" stroke-width="16px" rx="75px" ry="196px" fill="none" stroke="white" transform="rotate(52)"></ellipse><ellipse cx="0" cy="0" stroke-dasharray="400 65.21357043228349" stroke-dashoffset="-5124.70139863813" stroke-width="16px" rx="75px" ry="196px" fill="none" stroke="white" transform="rotate(-52)"></ellipse><circle cx="0" cy="0" r="34" fill="white"></circle></svg>
+    </div>
+
+    <h1 class="title">Vdm</h1>
+    <h2 class="sub-title">A lightweight directive template solution</h2>
+
+    <div class="btn-container">
+      <a class="slide-btn" href="./guide.html">Get Started</a>
+      <a class="slide-btn" href="http://github.com/vdmjs/vdm">View on GitHub</a>
+      <a class="slide-btn" href="#usage">Get Cdn Url</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="main wrap intro">
+  <h2 class="feature-title">vdm是一个轻量级的指令型模板解决方案</h2>
+  <p class="feature-content">
+如果你用过angular或者vue，应该对指令（directive）这个概念并不陌生,angular大而全，vue精简后增加了组件机制，而vdm结合angular，react，vue的特点实现了一套专注于解决模板问题的解决方案。</p>
+</div>
+
+
+<div class="boxs-container">
+  <h2>Vdm具有以下特点</h2>
+  <ul class="clearfix">
+    <li>
+      <img class="title-logo" src="http://img.alicdn.com/tps/TB1XrR1MXXXXXapXFXXXXXXXXXX-64-45.png">
+      <div class="title">单一职责</div>
+      <div class="content">vdm只负责解决模板问题。使用者可以单独使用，也可以跟任何其他框架结合使用</div>
+    </li>
+    <li>
+      <img class="title-logo" src="http://img.alicdn.com/tps/TB1lDdZMXXXXXa8XFXXXXXXXXXX-64-45.png">
+      <div class="title">更好的语法</div>
+      <div class="content">支持类mustache风格的模板语法，很好的避免了指令写多了模板可读性差的问题</div>
+    </li>
+    <li>
+      <img class="title-logo" src="http://img.alicdn.com/tps/TB1fml5MXXXXXbhXpXXXXXXXXXX-64-45.png">
+      <div class="title">virtual dom</div>
+      <div class="content">具有virtual dom中间层，一方面加快了分析指令的速度，另一方面也为服务端渲染提供了可能</div>
+    </li>
+    <li>
+      <img class="title-logo" src="http://img.alicdn.com/tps/TB1mUiaMXXXXXXuXXXXXXXXXXXX-64-45.png">
+      <div class="title">监听机制多样</div>
+      <div class="content">同时支持defineProperties与脏检测两种数据检测机制。并且都支持ie8。用户自行选择使用</div>
+    </li>
+  </ul>
+</div>
+
+
+<div class="main wrap extend">
+  <ul class="clearfix">
+    
+    <li>
+      <h2>
+      <img src="http://img.alicdn.com/tps/TB19cJZMXXXXXasXFXXXXXXXXXX-17-17.png">
+        测试</h2>
+      <div class="cont-box">
+      <p>采用karma + jasmine做功能性测试</p>
+      <pre class="single">cd vdm
+npm test</pre>
+      </div>
+    </li>
+    <li>
+      <h2>
+      <img src="http://img.alicdn.com/tps/TB1Zl0PMXXXXXcwXVXXXXXXXXXX-16-15.png">
+        打包</h2>
+      <div class="cont-box">
+      <p>使用webpack打包，在根目录执行</p>
+        <pre class="single">cd vdm
+npm run-script build</pre>
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+
+</body>
+</html>

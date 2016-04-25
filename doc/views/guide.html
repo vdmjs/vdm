@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>vdm-轻量级指令模板解决方案</title>
+  <link rel="stylesheet" type="text/css" href="../lib/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="../lib/lib.css">
+  <link rel="stylesheet" type="text/css" href="../lib/channel.css">
+  <script src="../lib/highlight.js"></script>
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/scrolltofix.js"></script>
+  <script src="../lib/semantic.min.js"></script>
+
+  <script>hljs.initHighlightingOnLoad()</script>
+  <script type="text/javascript">
+  $(function() {
+
+
+    $('.quick-menu .lists').each(function(){
+      var path = $(this).children('a').attr('href').slice(2)
+
+      if (path && location.pathname.indexOf(path) != -1) {
+        $(this).addClass('current')
+      }
+    })
+
+
+    $('#J_article_nav').scrollToFixed()
+
+
+    var linkNav = [];
+    linkNav.push('<div id="link"><span class="title">目录</span><ul>');
+    var isMarkDownArticle = false;
+    $("#J_content").find('h2,h3').each(function(){
+        isMarkDownArticle = true;
+        var text = $(this).html().replace(/<a\s+.*>.*<\/a>/,"");
+        var child = $(this)[0].tagName.toLowerCase() == 'h3' ? 'child' : ''
+        linkNav.push('<li class="'+child+'"><a href="#'+$(this).attr("id")+'" title="'+text+'">'+text+'</a></li>');
+    });
+    linkNav.push('</div></ul>');
+    if(isMarkDownArticle){
+      $('#J_article_nav').html(linkNav.join(""))
+    }
+
+    // $(window).scroll(function(){
+    //     if($(this).scrollTop() > 150){
+    //         $("#link").animate({"top":"50px"}, 100);
+    //     }else{
+    //         $("#link").animate({"top":"280px"},100);
+    //     }
+    // });
+
+  })
+
+  </script>
+</head>
+<body>
+
+<div id="site-nav">
+  <div class="head">
+
+   
+
+    <nav class="head-nav quick-menu">
+      <ul class="clearfix">
+        <li id="index" class="lists"><a href="./index.html">首页</a></li>
+        <li id="started" class="lists"><a href="./guide.html">起步</a></li>
+        <li id="doc" class="lists"><a href="./doc.html">文档</a></li>
+        <li id="example" class="lists"><a href="./example.html">实例</a></li>
+        <li id="article" class="lists"><a href="./article.html">文章</a></li>
+        <li class="lists"><a target="_blank" href="../../benchmark/list.html">基准测试</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div id="J_content" class="main wrap channel">
+  <div id="J_article_nav" class="article-nav"></div>
+  <h1 id='起步'>起步</h1>
+<h2 id='简介'>简介</h2>
+<p>vdm是一个轻量级的指令型模板解决方案。具备局部刷新，双向绑定，指令扩展，filter过滤等功能。</p>
+<p>如果你用过angular或者vue,应该对指令（directive）这个概念不会陌生,angular大而全，vue精简了一部分留下了组件，而vdm在angular，react，vue的基础上，结合各自的特点专注于解决模板层面的问题。</p>
+<p>与目前主要的框架相比，vdm具有以下特点：</p>
+<ul>
+<li>单一职责，vdm只负责解决模板问题。使用者可以单独使用，也可以跟任何其他框架结合使用。</li>
+<li>支持mustache风格的模板语法，避免了指令写多了模板可读性差的问题。</li>
+<li>具有指令型框架的特点，扩展性强，功能强大，可以扩展自己的指令。同时支持filter与自定义watcher。</li>
+<li>具有virtual dom中间层，一方面加快了分析指令的速度，另一方面也为服务端渲染提供了可能。</li>
+<li>考虑到目前国内情况，vdm做了大量事情，兼容到了ie8。</li>
+<li>同时支持脏检测与defineProperties的数据检测机制。在defineProperties模式下使用vbscript来做ie8兼容处理。</li>
+</ul>
+<h2 id='hello world'>hello world</h2>
+<p>我们来看下最简单的例子：</p>
+<p>html:</p>
+<pre><code class="lang-html">&lt;div id=&quot;test&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>js:</p>
+<pre><code class="lang-js">var v = new Vdm({
+  el:&#39;test&#39;,
+  data:{
+    text:&#39;hello world&#39;
+  },
+  template:&#39;{{text}}&#39;
+})
+</code></pre>
+<p>展现出来就是hello world，这是最简单的渲染。这边的<code>{{}}</code>称之为插值。默认会转义，如果不想要转义，就像mustache那样使用<code>{{{}}}</code>来实现。</p>
+<blockquote>
+<p>如react那样，vdm会针对每个dom元素加上一个标识id，用于后面局部刷新时去找dom节点。如果是插值渲染的文本节点那么会跟react那样包裹一个span标记。而对于普通文本不会包裹。</p>
+</blockquote>
+<h2 id='列表'>列表</h2>
+<p>下面是一个列表渲染的例子，我们更推荐使用mustache风格的语法，可读性更好。</p>
+<p>html:</p>
+<pre><code class="lang-html">
+&lt;div id=&quot;test&quot;&gt;
+
+&lt;/div&gt;
+
+&lt;script type=&quot;javascript/template&quot; id=&quot;J_tmpl&quot;&gt;
+
+&lt;!--指令型语法--&gt;
+&lt;!--
+&lt;div t-for=&quot;item in lists&quot;&gt;{{item.name}}-{{__INDEX__}}&lt;/div&gt;
+--&gt;
+
+&lt;!--mustache风格语法--&gt;
+{{#for(item in lists)}}
+&lt;div&gt;{{item.name}}-{{__INDEX__}}&lt;/div&gt;
+{{/for}}
+
+&lt;/script&gt;
+</code></pre>
+<p>js:</p>
+<pre><code class="lang-js">var v = new Vdm({
+  el:&#39;test&#39;,
+  data:{
+    lists:[{
+        name:&#39;1111&#39;
+    },{
+        name:&#39;2222&#39;
+    }],
+    text:&#39;hello world&#39;
+  },
+  template:document.getElementById(&#39;J_tmpl&#39;).innerHTML
+})
+</code></pre>
+<p>for指令可以使用<code>__INDEX__</code>拿到当前的索引index，从0开始计数。</p>
+<blockquote>
+<p>vdm的指令都有一个<code>t</code>的前缀，对于 for，if，unless都是一种指令。实际上就连上面的插值也是一种特殊的指令，指令是vdm的核心技术。用户也可以扩展自己的指令。</p>
+</blockquote>
+<h2 id='局部刷新'>局部刷新</h2>
+<p>vdm使局部刷新更加简单，通过操作数据来达到dom的局部更新目的。</p>
+<p>html:</p>
+<pre><code class="lang-html">&lt;div id=&quot;test&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>js:</p>
+<pre><code class="lang-js">var v = new Vdm({
+  el:&#39;test&#39;,
+  data:{
+    text:&#39;hello world&#39;
+  },
+  template:&#39;{{text}}&#39;
+})
+
+v.$data.text = &quot;hi world&quot;
+</code></pre>
+<p>每一个vdm实例都会有一个$data属性，它是vdm托管的数据，可以通过修改$data里面的值来达到局部刷新的目的。避免了复杂的dom操作。</p>
+<blockquote>
+<p>vdm同时支持两种数据变化监听机制，默认使用defineProperties机制，使用注入get set的方式监听数据变更之后批量修改。另外也支持脏检测机制，兼容性以及开发体验更好。详情<a href="./doc.html#defineProperties">点此了解</a>。</p>
+</blockquote>
+<h2 id='双向绑定'>双向绑定</h2>
+<p>与angular，vue一样，用户可以使用<code>t-model</code>指令来选择性的使用双向绑定的功能。</p>
+<p>html:</p>
+<pre><code class="lang-html">&lt;div id=&quot;test&quot;&gt;
+
+&lt;/div&gt;
+
+&lt;script type=&quot;javascript/template&quot; id=&quot;J_tmpl&quot;&gt;
+&lt;div&gt;{{text}}&lt;/div&gt;
+&lt;input type=&quot;text&quot; value=&quot;&quot; t-model=&quot;text&quot;&gt;
+&lt;/script&gt;
+</code></pre>
+<p>js:</p>
+<pre><code class="lang-js">var v = new Vdm({
+  el:&#39;test&#39;,
+  data:{
+    text:&#39;hello world&#39;
+  },
+  template:document.getElementById(&#39;J_tmpl&#39;).innerHTML
+})
+</code></pre>
+<p>更多详细用法，<a href="./doc.html">请点这里</a>。</p>
+
+</div>
+
+
+</body>
+</html>

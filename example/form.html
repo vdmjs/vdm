@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>测试页面</title>
+  <script src="../build/0.0.1/vdm.js"></script>
+
+
+  <style type="text/css">
+
+    body{
+      background: #fafafa;
+    }
+
+    #test{
+      background: #fff;
+      margin: 20px auto;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      width: 300px;
+      min-height: 100px;
+      padding: 20px 30px;
+    }
+    .line{
+      text-align: left;
+      margin-bottom: 10px;
+      border: 1px solid #eee;
+      padding: 10px;
+    }
+    .textarea{
+      width: 50px;
+      height: 30px;
+    }
+    input[type="text"]{
+      padding: 5px;
+      border-radius: 5px;
+      width: 100px;
+      margin-left: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="test">
+
+</div>
+
+<script type="javascript/template" id="J_tmpl">
+
+  <div class="line">
+    <span>"基本数据绑定":{{lists[0].text}}</span>
+    <input type="text" t-model="lists[0].text" />
+  </div>
+
+
+  <div class="line">
+    <div style="margin-right:20px;">单个checkbox:{{bo}}</div>
+    first<input type="checkbox" t-model="bo" />
+    second<input type="checkbox" t-model="bo" />
+  </div>
+
+
+  <div class="line">
+    <div style="margin-right:20px;">多个checkbox:{{checkArray.toString()}}</div>
+    valueA<input type="checkbox" value="a" t-model="checkArray" />
+    valueB<input type="checkbox" value="b" t-model="checkArray" />
+  </div>
+
+
+  <div class="line">
+    <div>radio:{{name}}</div>
+    <label>
+      <input id="r1" type="radio" t-model="name" value="111"/>111
+    </label>
+    <label>
+      <input id="r2" type="radio" t-model="name" value="222"/>222
+    </label>
+  </div>
+
+
+  <div class="line">
+    <div>select:{{select}}</div>
+    <div>
+      <select t-model="select">
+        <option value="111">111</option>
+        <option value="222">222</option>
+      </select>
+    </div>
+    <div>
+      <select t-model="select">
+        {{#for(item in lists)}}
+        <option value="{{item.text}}" >{{item.text}}</option>
+        {{/for}}
+      </select>
+    </div>
+
+  </div>
+
+  <div class="line">
+    <div>textarea:{{text}}</div>
+    <div>
+      未绑定：<textarea id="te">{{text}}附加值一直存在</textarea>
+    </div>
+
+    <div>
+      双向绑定过的：<textarea id="te3" t-model="text"></textarea>
+    </div>
+
+  </div>
+
+</script>
+
+<script type="text/javascript">
+//debug会包括更多的信息，但是只有daily版本有效果
+Vdm.config({
+  debug:true
+})
+
+var v2 = new Vdm({
+  el:'test',
+  data:{
+    text:'hello',
+    name:'111',
+    bo:false,
+    select:222,
+    checkArray:['a'],
+    lists:[{
+      name:'1',
+      text:'111',
+      hell:null
+    },{
+      name:'2',
+      text:'222',
+      hell:null
+    }]
+  },
+  template:document.getElementById('J_tmpl').innerHTML
+})
+
+</script>
+</body>
+</html>
