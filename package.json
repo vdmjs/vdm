@@ -1,6 +1,6 @@
 {
   "name": "vdm",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "a lightweight directive template of Virtual DOM",
   "main": "build/0.0.1/vdm.js",
   "directories": {
@@ -13,7 +13,7 @@
   },
   "keywords": [
     "light",
-    "vmd",
+    "vdm",
     "Virtual DOM",
     "directive"
   ],

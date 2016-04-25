@@ -13,8 +13,8 @@ module.exports = {
   entry: APP_PATH,
   output: {
     path: BUILD_PATH,
-    filename: version + '/vmd-min.js',
-    library: 'vmd',
+    filename: version + '/vdm-min.js',
+    library: 'Vdm',
     libraryTarget: 'umd'
   },
   plugins: [
